@@ -51,25 +51,6 @@ def delete_all_urls():
         current_app.logger.error(f"Error deleting all URLs: {e}")
         abort(500, description="Internal Server Error: Unable to delete all URLs.")
 
-@url_ops_bp.route('/add_url', methods=['POST'])
-def add_url():
-    data = request.json
-    if not data or 'url' not in data:
-        abort(400, description="Invalid request: 'url' field is required.")
-    
-    try:
-        new_url = data['url'].strip()
-        if not is_valid_url(new_url):
-            abort(400, description="Invalid URL format.")
-        with open(current_app.config['URLS_FILE'], 'a', encoding='utf-8') as f:
-            f.write(new_url + '\n')
-        
-        current_app.logger.info(f"URL added successfully: {new_url}")
-        return jsonify({"message": "URL added successfully"}), 201
-    except Exception as e:
-        current_app.logger.error(f"Error adding URL {new_url}: {e}")
-        abort(500, description="Internal Server Error: Unable to add URL.")
-
 @url_ops_bp.route('/get_urls', methods=['GET'])
 def get_urls():
     try:
