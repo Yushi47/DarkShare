@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DarkShare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='icons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifests/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='icons/safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="apple-mobile-web-app-title" content="DarkShare">
+    <meta name="application-name" content="DarkShare">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body onload="loadText()">
+    <div class="container">
+        <h1>Upload Files and Share URLs</h1>
+        <form method="post" enctype="multipart/form-data">
+            <textarea id="persistent-text" placeholder="Persistent Text Box" oninput="saveText()"></textarea>
+            <div class="button-group">
+                <button type="button" class="copy-button" onclick="copyText()">Copy</button>
+                <button type="button" class="clear-button" onclick="clearText()">Clear</button>
+                <button type="button" class="paste-button" onclick="pasteText()">Paste</button>
+            </div>
+            <input type="file" name="files[]" multiple>
+            <textarea name="url" placeholder="Enter URLs, separated by spaces or new lines"></textarea>
+            <button type="submit" class="upload-button">Upload</button>
+        </form>
+        <div class="header-actions">
+            <h2>Files</h2>
+            <button class="icon-button" onclick="downloadAllFiles()">
+                <img src="{{ url_for('static', filename='icons/download-icon.png') }}" alt="Download All" class="icon"> Download All
+            </button>
+            <button class="icon-button" onclick="confirmDeleteAllFiles()">
+                <img src="{{ url_for('static', filename='icons/delete-icon.png') }}" alt="Delete All" class="icon"> Delete All
+            </button>
+        </div>
+        <ul id="file-list">
+            {% for file in files %}
+                <li id="{{ file | urlencode }}">
+                    <img src="{{ url_for('static', filename='icons/' + get_file_type(file) + '.png') }}" alt="File" class="file-icon">
+                    <a href="{{ url_for('file_ops.uploaded_file', filename=file) }}" target="_blank">{{ file }}</a>
+                    <a href="{{ url_for('file_ops.uploaded_file', filename=file) }}" download class="icon-button">
+                        <img src="{{ url_for('static', filename='icons/download-icon.png') }}" alt="Download" class="icon">
+                    </a>
+                    <button class="icon-button" data-filename="{{ file | urlencode }}" onclick="confirmDelete('{{ file | urlencode }}')">
+                        <img src="{{ url_for('static', filename='icons/delete-icon.png') }}" alt="Delete" class="icon">
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="header-actions">
+            <h2>URLs</h2>
+            <button class="icon-button" onclick="confirmDeleteAllUrls()">
+                <img src="{{ url_for('static', filename='icons/delete-icon.png') }}" alt="Delete All" class="icon"> Delete All
+            </button>
+        </div>
+        <ul id="url-list">
+            {% for url in urls %}
+                <li id="{{ url | urlencode }}">
+                    <img src="{{ url_for('static', filename='icons/link-icon.png') }}" alt="Link" class="link-icon">
+                    <a href="{{ url }}" target="_blank">{{ url }}</a>
+                    <button class="icon-button" data-url="{{ url | urlencode }}" onclick="confirmDeleteUrl('{{ url | urlencode }}')">
+                        <img src="{{ url_for('static', filename='icons/delete-icon.png') }}" alt="Delete" class="icon">
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script type="module" src="{{ url_for('static', filename='assets/js/clipboard.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='assets/js/utils.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='assets/js/deleteOperations.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='assets/js/script.js') }}"></script>
+</body>
+</html>

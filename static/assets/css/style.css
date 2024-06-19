@@ -1,0 +1,151 @@
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #00adb5;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="file"],
+textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #393e46;
+    color: #eeeeee;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+.upload-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: normal;
+    background-color: #00adb5;
+    color: #ffffff;
+}
+
+.upload-button:hover {
+    background-color: #007a88;
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.4px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.icon-button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 2.5px;
+}
+
+.icon-button:hover {
+    background-color: #235050;
+}
+
+.file-icon, .link-icon, .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+a {
+    color: #00adb5;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-right: auto;
+}
+
+textarea#persistent-text {
+    height: 100px;
+    resize: none;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #393e46;
+    color: #eeeeee;
+    margin-bottom: 5px; /* Adjusted spacing */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Adjusted spacing */
+    margin-bottom: 5px; /* Adjusted spacing */
+}
+
+.copy-button, .clear-button, .paste-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: normal;
+    background-color: #00adb5;
+    color: #ffffff;
+}
+
+.copy-button:hover, .clear-button:hover, .paste-button:hover {
+    background-color: #007a88;
+}

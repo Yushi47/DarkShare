@@ -1,0 +1,51 @@
+DarkShare/
+├── certs/
+│   ├── selfsigned.crt
+│   ├── selfsigned.key
+├── static/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   ├── js/
+│   │   │   ├── script.js
+│   │   │   ├── clipboard.js
+│   │   │   ├── utils.js
+│   │   │   └── deleteOperations.js
+│   ├── icons/
+│   │   ├── audio-icon.png
+│   │   ├── delete-icon.png
+│   │   ├── download-icon.png
+│   │   ├── file-icon.png
+│   │   ├── image-icon.png
+│   │   ├── link-icon.png
+│   │   ├── video-icon.png
+│   │   ├── favicon-16x16.png
+│   │   ├── favicon-32x32.png
+│   │   ├── favicon.ico
+│   │   ├── apple-touch-icon.png
+│   │   ├── android-chrome-192x192.png
+│   │   ├── android-chrome-512x512.png
+│   │   └── mstile-150x150.png
+│   ├── manifests/
+│   │   ├── site.webmanifest
+│   │   ├── safari-pinned-tab.svg
+│   │   └── browserconfig.xml
+├── templates/
+│   └── index.html
+├── blueprints/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── file_ops.py
+│   ├── url_ops.py
+│   ├── text_ops.py
+├── app.py
+├── config.py
+├── .env
+├── layout.txt
+├── requirements.txt
+└── README.md
+
+SharedFolder/
+├── uploads/
+├── text.txt
+└── urls.txt
