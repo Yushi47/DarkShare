@@ -3,22 +3,9 @@ import os
 import urllib.parse
 import io
 import zipfile
-import re
+from werkzeug.utils import secure_filename
 
 file_ops_bp = Blueprint('file_ops', __name__)
-
-# URL validation regex pattern
-URL_PATTERN = re.compile(
-    r'^(?:http|ftp)s?://'  # http:// or https://
-    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
-    r'localhost|'  # localhost...
-    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|'  # ...or ipv4
-    r'\[?[A-F0-9]*:[A-F0-9:]+\]?)'  # ...or ipv6
-    r'(?::\d+)?'  # optional port
-    r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-
-def is_valid_url(url):
-    return re.match(URL_PATTERN, url) is not None
 
 @file_ops_bp.route('/', methods=['POST'])
 def upload_file():
@@ -28,43 +15,17 @@ def upload_file():
             for file in files:
                 if file.filename == '':
                     continue
-                filename = file.filename
+                filename = secure_filename(file.filename)
                 file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-        
-        urls = request.form.get('url')
-        if urls:
-            url_list = urls.split()
-            url_list = [url.strip() for url in url_list if url.strip()]
-            valid_urls = [url for url in url_list if is_valid_url(url)]
-            current_app.logger.debug(f"Valid URLs received: {valid_urls}")
-            
-            if os.path.exists(current_app.config['URLS_FILE']):
-                with open(current_app.config['URLS_FILE'], 'r', encoding='utf-8') as f:
-                    existing_urls = f.read().splitlines()
-            else:
-                existing_urls = []
-
-            updated_urls = list(set(existing_urls + valid_urls))  # Remove duplicates
-            current_app.logger.debug(f"Updated URLs before saving: {updated_urls}")
-
-            with open(current_app.config['URLS_FILE'], 'w', encoding='utf-8') as f:
-                for url in updated_urls:
-                    f.write(f"{url}\n")
-            
-            current_app.logger.debug(f"Updated URLs after saving: {updated_urls}")
         
         return redirect(url_for('main.index'))
     except Exception as e:
-        current_app.logger.error(f"Error uploading file or URL: {e}")
-        abort(500, description="Internal Server Error: Unable to upload file or URL.")
+        current_app.logger.error(f"Error uploading files: {e}")
+        abort(500, description="Internal Server Error: Unable to upload files.")
 
-@file_ops_bp.route('/uploads/<filename>')
+@file_ops_bp.route('/uploaded_file/<filename>')
 def uploaded_file(filename):
-    try:
-        return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
-    except Exception as e:
-        current_app.logger.error(f"Error sending file {filename}: {e}")
-        abort(500, description="Internal Server Error: Unable to send file.")
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
 @file_ops_bp.route('/delete/<filename>', methods=['DELETE'])
 def delete_file(filename):
