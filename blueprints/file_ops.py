@@ -23,7 +23,11 @@ def is_valid_url(url):
 
 @file_ops_bp.route('/', methods=['POST'])
 def upload_file():
+    """
+    Handles file uploads and URL submissions.
+    """
     try:
+        # Handle file uploads
         if 'files[]' in request.files:
             files = request.files.getlist('files[]')
             for file in files:
@@ -32,6 +36,7 @@ def upload_file():
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
         
+        # Handle URL submissions
         urls = request.form.get('url')
         if urls:
             url_list = urls.split()
