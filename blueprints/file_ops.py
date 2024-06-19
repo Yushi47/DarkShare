@@ -1,10 +1,10 @@
-import re
 from flask import Blueprint, request, redirect, url_for, send_from_directory, abort, send_file, current_app, jsonify
 import os
 import urllib.parse
 import io
 import zipfile
 from werkzeug.utils import secure_filename
+import re
 
 file_ops_bp = Blueprint('file_ops', __name__)
 
@@ -19,6 +19,9 @@ URL_PATTERN = re.compile(
     r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
 def is_valid_url(url):
+    """
+    Validates a given URL using a regular expression.
+    """
     return re.match(URL_PATTERN, url) is not None
 
 @file_ops_bp.route('/', methods=['POST'])
@@ -64,10 +67,16 @@ def upload_file():
 
 @file_ops_bp.route('/uploaded_file/<filename>')
 def uploaded_file(filename):
+    """
+    Serves an uploaded file from the upload directory.
+    """
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
 @file_ops_bp.route('/delete/<filename>', methods=['DELETE'])
 def delete_file(filename):
+    """
+    Deletes a specific file from the upload directory.
+    """
     try:
         decoded_filename = urllib.parse.unquote(filename)
         file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], decoded_filename)
@@ -84,6 +93,9 @@ def delete_file(filename):
 
 @file_ops_bp.route('/delete_all_files', methods=['DELETE'])
 def delete_all_files():
+    """
+    Deletes all files from the upload directory.
+    """
     try:
         files = os.listdir(current_app.config['UPLOAD_FOLDER'])
         for file in files:
@@ -95,6 +107,9 @@ def delete_all_files():
 
 @file_ops_bp.route('/download_all_files')
 def download_all_files():
+    """
+    Downloads all files from the upload directory as a single ZIP file.
+    """
     try:
         files = os.listdir(current_app.config['UPLOAD_FOLDER'])
         if not files:

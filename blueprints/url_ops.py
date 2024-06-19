@@ -16,10 +16,16 @@ URL_PATTERN = re.compile(
     r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
 def is_valid_url(url):
+    """
+    Validates a given URL using a regular expression.
+    """
     return re.match(URL_PATTERN, url) is not None
 
 @url_ops_bp.route('/delete_url/<path:url>', methods=['DELETE'])
 def delete_url(url):
+    """
+    Deletes a specific URL from the URL file.
+    """
     try:
         decoded_url = urllib.parse.unquote(url).strip()
         current_app.logger.info(f"Received request to delete URL: {url}")
@@ -42,6 +48,9 @@ def delete_url(url):
 
 @url_ops_bp.route('/delete_all_urls', methods=['DELETE'])
 def delete_all_urls():
+    """
+    Deletes all URLs from the URL file.
+    """
     try:
         if os.path.exists(current_app.config['URLS_FILE']):
             open(current_app.config['URLS_FILE'], 'w', encoding='utf-8').close()
@@ -53,6 +62,9 @@ def delete_all_urls():
 
 @url_ops_bp.route('/get_urls', methods=['GET'])
 def get_urls():
+    """
+    Retrieves all URLs from the URL file.
+    """
     try:
         if os.path.exists(current_app.config['URLS_FILE']):
             with open(current_app.config['URLS_FILE'], 'r', encoding='utf-8') as f:
