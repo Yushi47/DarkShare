@@ -1,4 +1,4 @@
-import { confirmDelete, confirmDeleteUrl, confirmDeleteAllFiles, confirmDeleteAllUrls } from './deleteOperations.js';
+import { confirmDelete, confirmDeleteUrl, confirmDeleteAllFiles, confirmDeleteAllUrls } from './delete.js';
 import { copyText, pasteText } from './clipboard.js';
 import { saveText, loadText, clearText } from './utils.js';
 
