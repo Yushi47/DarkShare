@@ -30,7 +30,7 @@ def get_file_type(filename):
     elif ext in ['.json']:
         return 'json-icon'
     elif ext in ['.ppt', '.pptx', '.pot']:
-        return 'powerpoint-icon'
+        return 'ppt-icon'
     elif ext in ['.py']:
         return 'python-icon'
     elif ext in ['.md']:
