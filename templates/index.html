@@ -17,7 +17,7 @@
 </head>
 <body onload="loadText()">
     <div class="container">
-        <h1>Upload Files and Share URLs</h1>
+        <h1><img src="{{ url_for('static', filename='icons/darkshare-icon.gif') }}" alt="title" class="darkshare-icon"></h1>
         <form method="post" enctype="multipart/form-data">
             <textarea id="persistent-text" placeholder="Persistent Text Box" oninput="saveText()"></textarea>
             <div class="button-group">

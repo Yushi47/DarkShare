@@ -12,13 +12,13 @@ body {
 
 h1 {
     text-align: center;
-    color: #00adb5;
+    color: #6F52ED;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     margin-bottom: 20px;
 }
 
@@ -45,7 +45,7 @@ textarea {
     border-radius: 5px;
     cursor: pointer;
     font-weight: normal;
-    background-color: #00adb5;
+    background-color: #6F52ED;
     color: #ffffff;
 }
 
@@ -93,7 +93,7 @@ li {
 }
 
 a {
-    color: #00adb5;
+    color: #6F52ED;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -142,7 +142,7 @@ textarea#persistent-text {
     border-radius: 5px;
     cursor: pointer;
     font-weight: normal;
-    background-color: #00adb5;
+    background-color: #6F52ED;
     color: #ffffff;
 }
 
