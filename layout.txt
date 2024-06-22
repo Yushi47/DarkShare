@@ -7,10 +7,12 @@ DarkShare/
 │   │   ├── css/
 │   │   │   └── style.css
 │   │   ├── js/
-│   │   │   ├── script.js
 │   │   │   ├── clipboard.js
+│   │   │   ├── delete.js
+│   │   │   ├── jquery-3.6.0.min.js
+│   │   │   ├── jquery.js
+│   │   │   ├── script.js
 │   │   │   ├── utils.js
-│   │   │   └── deleteOperations.js
 │   ├── icons/
 │   │   ├── audio-icon.png
 │   │   ├── delete-icon.png
