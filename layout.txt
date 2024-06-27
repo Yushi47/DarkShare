@@ -9,10 +9,12 @@ DarkShare/
 │   │   ├── js/
 │   │   │   ├── clipboard.js
 │   │   │   ├── delete.js
+│   │   │   ├── download.js
+│   │   │   ├── hammer.js
+│   │   │   ├── hammer.min.js
 │   │   │   ├── jquery-3.6.0.min.js
-│   │   │   ├── jquery.js
 │   │   │   ├── script.js
-│   │   │   ├── utils.js
+│   │   │   └── utils.js
 │   ├── icons/
 │   │   ├── audio-icon.png
 │   │   ├── delete-icon.png
@@ -39,7 +41,7 @@ DarkShare/
 │   ├── main.py
 │   ├── file_ops.py
 │   ├── url_ops.py
-│   ├── text_ops.py
+│   └── text_ops.py
 ├── app.py
 ├── config.py
 ├── .env
