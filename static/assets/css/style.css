@@ -9,6 +9,7 @@ html, body {
   align-items: center;
   background-color: #121212;
   color: #E0E0E0;
+  font-family: 'Kosugi Maru', sans-serif;
 }
 
 .container {
@@ -92,6 +93,7 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: #9b8cf1;
 }
 
 .header-actions {
@@ -121,6 +123,7 @@ button {
   cursor: pointer;
   flex-shrink: 0;
   width: auto;
+  font-family: 'Kaushan Script', cursive;
 }
 
 button:hover {

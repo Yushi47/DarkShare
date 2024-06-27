@@ -16,7 +16,8 @@ app = Flask(__name__)
 csp = {
     'default-src': ['\'self\''],
     'script-src': ['\'self\'', '\'unsafe-inline\''],
-    'style-src': ['\'self\'', '\'unsafe-inline\'']
+    'style-src': ['\'self\'', '\'unsafe-inline\'', 'https://fonts.googleapis.com'],
+    'font-src': ['\'self\'', 'https://fonts.gstatic.com']
 }
 
 Talisman(app, content_security_policy=csp)  # Enforce HTTPS and security headers
