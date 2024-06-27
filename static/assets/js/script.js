@@ -1,5 +1,3 @@
-// script.js
-
 // Function to dynamically load a script
 function loadScript(url) {
     return new Promise((resolve, reject) => {
@@ -11,13 +9,10 @@ function loadScript(url) {
     });
 }
 
-// Load jQuery first
+// Load scripts
 loadScript('/static/assets/js/jquery-3.6.0.min.js')
+    .then(() => loadScript('/static/assets/js/hammer.min.js'))
     .then(() => {
-        return loadScript('/static/assets/js/jquery.js');
-    })
-    .then(() => {
-        // Import other JavaScript files
         return Promise.all([
             import('/static/assets/js/delete.js').then(module => {
                 window.confirmDelete = module.confirmDelete;
@@ -35,26 +30,30 @@ loadScript('/static/assets/js/jquery-3.6.0.min.js')
                 window.saveText = module.saveText;
                 window.loadText = module.loadText;
                 window.clearText = module.clearText;
+            }),
+            import('/static/assets/js/download.js').then(module => {
+                window.downloadAllFiles = module.downloadAllFiles;
+                module.initializeDownloadLinks();
             })
         ]);
     })
     .then(() => {
-        // Function to handle downloading all files
-        function downloadAllFiles() {
-            window.location.href = '/download_all_files';
-        }
-        window.downloadAllFiles = downloadAllFiles;
+        console.log('Scripts loaded successfully.');
 
-        // Include jQuery functionalities
-        $(document).on("touchstart mousedown touchend mouseup", "button", function (e) {
-            e.preventDefault();
-            if (e.type === "touchstart" || e.type === "mousedown") {
-                $(this).addClass("clicked");
-            } else {
-                $(this).removeClass("clicked").blur();
-            }
+        // Load text as per application logic
+        if (window.loadText) {
+            window.loadText();
+        }
+
+        // jQuery for animations (move this from global to locally after the scripts finished loading)
+        $(document).on("touchstart mousedown", "button", function(e) {
+            $(this).addClass("clicked");
+        });
+
+        $(document).on("touchend mouseup", "button", function(e) {
+            $(this).removeClass("clicked").blur();
         });
     })
     .catch(err => {
-        console.error(err);
+        console.error('Script load error:', err);
     });
