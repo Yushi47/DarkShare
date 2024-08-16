@@ -155,10 +155,6 @@ You can use the self-signed SSL certificates provided in the `certs` directory. 
 - Upload Speeds The current implementation may have limitations with upload speeds and handling of large files.
 - File Sizes There may be issues with very large files. Improvements are planned to address these areas.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Screenshots for the UI
 
 p align=center
