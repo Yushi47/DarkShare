@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    SHARED_FOLDER = os.getenv('SHARED_FOLDER', 'C:\\Users\\Ahmed\\Desktop\\SharedFolder')
+    SHARED_FOLDER = os.getenv('SHARED_FOLDER', 'C:\\Users\\(User)\\Desktop\\SharedFolder')
     UPLOAD_FOLDER = os.path.join(SHARED_FOLDER, 'uploads')
     TEXT_FILE = os.path.join(SHARED_FOLDER, 'text.json')
     URLS_FILE = os.path.join(SHARED_FOLDER, 'urls.txt')

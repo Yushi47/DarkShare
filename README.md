@@ -1,49 +1,38 @@
-Certainly! Here’s a structured `README.md` template for your Flask app "DarkShare" with comprehensive instructions on installation, IP configuration, and features. This will serve as a solid foundation that you can update as your project evolves.
-
-```markdown
 # DarkShare
 
-DarkShare is a Flask-based web application designed for efficient file sharing and management. This README provides a comprehensive guide on installing the application, configuring the IP settings, and highlighting key features.
-
-## Table of Contents
-- [Features](#features)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+DarkShare is a Flask-based web application for efficient file sharing and management. This README provides instructions for setting up and running the application.
 
 ## Features
-- File Upload and Download
-- Copy and Paste Functionality
-- File Deletion
-- Dynamic Script Loading
-- No Double Confirmation on Deletion
+- File Upload and Download Easily manage file uploads and downloads.
+- Clipboard Functionality Copy and paste text using clipboard functionalities.
+- Persistent Text Box Quicly share text between different devices.
+- File Deletion Remove files with a single confirmation.
+- Dynamic Script Loading Efficiently load and manage scripts.
+- Secure HTTPS Supports self-signed SSL certificates for secure communication.
 
 ## Installation
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Follow these steps to set up DarkShare on your local machine for development and testing
 
 ### Prerequisites
 
-Ensure you have the following installed:
-- Python (>= 3.6)
+Make sure you have the following installed
+- Python (= 3.6)
 - pip (Python package installer)
+- Flask and other dependencies listed in `requirements.txt`
 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/darkshare.git
+git clone httpsgithub.comyourusernamedarkshare.git
 cd darkshare
 ```
 
-### Create and Activate a Virtual Environment (Optional but recommended)
+### Create and Activate a Virtual Environment (Optional but Recommended)
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate   # On Windows use `venv\Scripts\activate`
+source venvbinactivate   # On Windows use `venvScriptsactivate`
 ```
 
 ### Install Dependencies
@@ -51,70 +40,130 @@ source venv/bin/activate   # On Windows use `venv\Scripts\activate`
 ```bash
 pip install -r requirements.txt
 ```
+## Setting the IP Address
 
-### Setting the IP Address
-
-#### Configuring the IP Address
-1. **Find an IP outside the DHCP range of your router**
+### Configuring the IP Address
+1. Find an IP outside the DHCP range of your router
    - Access your router's configuration page (usually `192.168.1.1` or `192.168.0.1`) through a web browser.
    - Log in with your admin credentials.
    - Locate the DHCP settings section. Identify the DHCP range.
    - Choose an IP address outside this range (e.g., if the DHCP range is `192.168.1.100 - 192.168.1.200`, you can choose `192.168.1.201`).
 
-2. **Assign IP to your PC/Host**
-   - On **Windows**:
-     - Go to `Control Panel > Network and Sharing Center > Change adapter settings`.
+2. Assign IP to your PCHost
+   - On Windows
+     - Go to `Control Panel  Network and Sharing Center  Change adapter settings`.
      - Right-click on the network adapter connected to your router and select `Properties`.
-     - Select `Internet Protocol Version 4 (TCP/IPv4)` and click `Properties`.
+     - Select `Internet Protocol Version 4 (TCPIPv4)` and click `Properties`.
      - Select `Use the following IP address` and enter your chosen IP (e.g., `192.168.1.201`). Set the Subnet mask, usually `255.255.255.0`, and Default gateway (your router’s IP, e.g., `192.168.1.1`).
 
-   - On **Mac/Linux**:
-     - Open `System Preferences > Network`.
+   - On MacLinux
+     - Open `System Preferences  Network`.
      - Select your active network connection and click `Advanced`.
-     - Go to the `TCP/IP` tab. Set `Configure IPv4` to `Manually`.
+     - Go to the `TCPIP` tab. Set `Configure IPv4` to `Manually`.
      - Enter your chosen IP (e.g., `192.168.1.201`), Subnet mask (`255.255.255.0`), and Router (default gateway, e.g., `192.168.1.1`).
 
-### Run the Application
+## Configuration
 
-Create a `.env` file in the root of your project directory and set the following variables:
+### Environment Variables
+
+Update the `.env` file in the root of your project directory with the following content. Note Update the `SHARED_FOLDER` path to match your local directory before usage.
 
 ```env
-FLASK_APP=app.py
-FLASK_ENV=development
-IP_ADDRESS=192.168.1.201  # Your chosen static IP
+# Path to the shared folder (update this path according to your setup)
+SHARED_FOLDER=CUsers(User)DesktopSharedFolder
+
+# Server IP address
+IP_ADDRESS=0.0.0.0
+
+# Server port
+PORT=8000
+
+# Enable or disable debug mode
+DEBUG=True
+
+# Path to the SSL certificate
+SSL_CERT=certsselfsigned.crt
+
+# Path to the SSL key
+SSL_KEY=certsselfsigned.key
+```
+### Config.py
+
+Update the `confi.py` file in the root of your project directory with the following content. Note Update the `SHARED_FOLDER` path to match your local directory before usage.
+
+```config.py
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config
+    SHARED_FOLDER = os.getenv('SHARED_FOLDER', 'CUsers(User)DesktopSharedFolder') # Path to the shared folder (update this path according to your setup)
+    UPLOAD_FOLDER = os.path.join(SHARED_FOLDER, 'uploads')
+    TEXT_FILE = os.path.join(SHARED_FOLDER, 'text.json')
+    URLS_FILE = os.path.join(SHARED_FOLDER, 'urls.txt')
+    IP_ADDRESS = os.getenv('IP_ADDRESS', '0.0.0.0')
+    PORT = int(os.getenv('PORT', 8000))
+    DEBUG = os.getenv('DEBUG', 'True').lower() in ['true', '1', 't']
+    SSL_CERT = os.getenv('SSL_CERT', os.path.join('certs', 'selfsigned.crt'))
+    SSL_KEY = os.getenv('SSL_KEY', os.path.join('certs', 'selfsigned.key'))
+
+    @staticmethod
+    def init_app(app)
+        pass
+
+class DevelopmentConfig(Config)
+    DEBUG = True
+
+class TestingConfig(Config)
+    TESTING = True
+    DEBUG = True
+
+class ProductionConfig(Config)
+    DEBUG = False
+
+config = {
+    'development' DevelopmentConfig,
+    'testing' TestingConfig,
+    'production' ProductionConfig,
+    'default' ProductionConfig
+}
 ```
 
-Run the Flask application:
+### SSL Certificates
 
-```bash
-flask run --host=192.168.1.201
-```
-
-Access the application by navigating to `http://192.168.1.201:5000` in your web browser.
+You can use the self-signed SSL certificates provided in the `certs` directory. Ensure these files are correctly placed and referenced in your `.env` file.
 
 ## Usage
-- **File Upload**: Navigate to the upload section and select files to upload.
-- **File Download**: Click on the file links to download them.
-- **Copy and Paste**: Copy and paste text using clipboard functionalities.
-- **File Deletion**: Delete files temporarily or permanently with a single confirmation.
 
-## Roadmap
-- Add user authentication.
-- Implement file encryption.
-- Enhance UI/UX with modern design principles.
-- Introduce mobile responsiveness.
+1. Run the Application
 
-## Contributing
-We welcome contributions from the community! Here’s how you can get involved:
-- Fork the project
-- Create a feature branch (`git checkout -b feature/AmazingFeature`)
-- Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-- Push the branch (`git push origin feature/AmazingFeature`)
-- Open a Pull Request
+   Start the Flask application with
+
+   ```bash
+   flask run --host=your-ip-address --port=8000
+   ```
+
+   Replace `your-ip-address` with the IP address you configured in the `.env` file.
+
+2. Access the Application
+
+   Open a web browser and navigate to `httpyour-ip-address8000` to use the application.
+
+## Known Issues
+
+- Upload Speeds The current implementation may have limitations with upload speeds and handling of large files.
+- File Sizes There may be issues with very large files. Improvements are planned to address these areas.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
-For additional information or queries, feel free to reach out:
--
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Screenshots for the UI
+
+p align=center
+a href=#
+img src=httpsi.gyazo.combdd44540b5f22bc08c202b2d88f6ad02.png alt=logo
+img src=httpsi.gyazo.come15cd6b19b627d901ae566ff50dc2346.png alt=logo
+a
+p
