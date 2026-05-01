@@ -159,6 +159,6 @@ You can use the self-signed SSL certificates provided in the `certs` directory. 
 
 <p align="center">
 <a href="#">
-<img src="https://i.gyazo.com/bdd44540b5f22bc08c202b2d88f6ad02.png" width="500" alt="logo"/>
+<img src="static/assets/app.png" width="500" alt="logo"/>
 </a>
 </p>
